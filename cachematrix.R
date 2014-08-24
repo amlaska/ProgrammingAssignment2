@@ -1,14 +1,16 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The goal of these two functions is to improve the performance of calculating
+## the inverse of a matrix by caching the result. In addition, this assignment 
+## demonstrates the principals of scoping within functions.
 
-## Write a short comment describing this function
+
+## This function creates a special "matrix" object that can cache its inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
   
   ## Initialize to null to reset values of matrix in the function
   my_matrix <- NULL
   
-  
+  ## If there is a matrix already cached, load it into x
   set <- function(y) {
     x <<- y
     my_matrix <<- NULL
@@ -18,20 +20,23 @@ makeCacheMatrix <- function(x = matrix()) {
   get <- function() x
   
   ## Function that finds the inverse of the matrix
-  setmatrix <- function(solve) 
-  my_matrix <<- solve
-  
+  setmatrix <- function(cur_matrix = x$get(), ...){ 
+    my_matrix <<- solve(cur_matrix, ...)
+  }
   ## Function to retrieve cached matrix
   getmatrix <- function() 
   my_matrix
   
-  
+  ## Store the variables in a list
   list(set = set, get = get,
        setmatrix = setmatrix)
 }
 
 
-## Write a short comment describing this function
+## This function computes the inverse of the special "matrix" returned by 
+## makeCacheMatrix above. If the inverse has already been calculated 
+## (and the matrix has not changed), then the cachesolve should retrieve 
+## the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
